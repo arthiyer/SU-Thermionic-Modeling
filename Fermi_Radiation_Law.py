@@ -39,7 +39,6 @@ materials = {'Lithium': 4.74,
 
 
 material = raw_input('What material are you using? Please capitalize the first letter of the material... ')
-#T = raw_input('What is the max temperature of your experiment? ')
 boltz = 1.3806488e-23
 
 numerator = np.subtract(E, materials[material])
