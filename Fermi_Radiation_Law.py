@@ -48,9 +48,9 @@ denominator = np.multiply(boltz, T)
 fraction = np.divide.outer(numerator, denominator)
 oc.surf(fraction)
 
-oc.title('Fermi-Dirac Statistics for ' + material)
-oc.xlabel('Temperature')
-oc.ylabel('log(E)')
+oc.title('Log of Fermi-Dirac Statistics for ' + material)
+oc.xlabel('Temperature (K)')
+oc.ylabel('Energy E (J)')
 oc.zlabel('Fermi-Dirac Statistics')
 
 raw_input(' ')
