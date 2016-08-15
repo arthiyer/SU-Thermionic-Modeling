@@ -4,7 +4,7 @@ from oct2py import Oct2Py
 
 oc = Oct2Py()
 oc.graphics_toolkit('gnuplot')
-xx = np.arange(1, 1000, 0.5)
+T = np.arange(1, 1000, 0.5)
 
 materials = {'Molybdenum': [4.15, 55],
              'Nickel': [4.61, 30],
@@ -22,13 +22,13 @@ materials = {'Molybdenum': [4.15, 55],
 
 material1 = raw_input('What cathode material are you using? Please capitalize the first letter of the material... ')
 boltz = 1.3806488e-23
-atsquare = np.multiply(materials[material1][1], np.square(xx))
-kt = np.multiply(boltz, xx)
-WOverKt = np.divide(-materials[material1][0], kt)
+atsquare = np.multiply(materials[material][1], np.square(T))
+kt = np.multiply(boltz, T)
+WOverKt = np.divide(-materials[material][0], kt)
 a = np.logaddexp(atsquare, np.exp(WOverKt))
 
 oc.plot(xx, a, 'r')
-oc.title('Current Thermionic Emission Density of ' + material1 + ' VS. Temperature')
+oc.title('Current Thermionic Emission Density of ' + material + ' VS. Temperature')
 oc.xlabel('Temperature')
 oc.ylabel('Current Thermionic Emission Density')
 
