@@ -1,11 +1,11 @@
-#necessary for plotting with Oct2Py
+# Necessary for plotting with Oct2Py
 import numpy as np
-#necessary to perform mathematical functions
+# Necessary to perform mathematical functions
 import math
-#implements Octave methods in python
+# Implements Octave methods in python
 from oct2py import Oct2Py
 
-#gives the user the option of whether to quit or continue at every stage in the program.
+# Gives the user the option of whether to quit or continue at every stage in the program.
 def userInput() :
     response = raw_input('Screenshot this image if you want it. Type the word yes into the terminal to continue. Type no to quit the program ... ')
     while True: 
@@ -18,32 +18,32 @@ def userInput() :
 oc = Oct2Py()
 oc.graphics_toolkit('gnuplot')
 
-#This material is used for both Richardson-Dushman and Fermi-Dirac.
+# This material is used for both Richardson-Dushman and Fermi-Dirac.
 material = raw_input('What material are you using in your experiment? Please capitalize the first letter of the material ... ')
 
 print('PART 1 --> Childs Law')
 
-#creates the x,y matrix using numpy
+# Creates the x,y matrix using numpy
 V = np.arange(1, 64, 1)
 D = np.arange(1, 64, 1)
 
-#graphs Child's Law
+# Graphs Child's Law
 oc.surf(np.divide.outer(np.multiply(8.8541871e-12,V**1.5),D**2))
 oc.title('Childs law')
 oc.xlabel('potential diff between anode & cathode (V)')
 oc.ylabel('dist. between anode & cathode (mm)')
 oc.zlabel('current density (mA mm-2)')
 
-#gives the user the option of whether or not to continue
+# Gives the user the option of whether or not to continue
 userInput()
 
 print('PART 2 --> Richardson Dushman Equation')
 
-#creates the x,y matrix using numpy
+# Creates the x,y matrix using numpy
 T = np.arange(1, 1000, 0.5)
 
-#Dictionary catagorizing work functions and A correction factors by material.
-#This is used for Part 2
+# Dictionary catagorizing work functions and A correction factors by material.
+# This is used for Part 2
 materials = {'Molybdenum': [4.15, 55],
              'Nickel': [4.61, 30],
              'Tantalum': [4.12, 60],
@@ -58,31 +58,32 @@ materials = {'Molybdenum': [4.15, 55],
              'default': [120.2, 1]
              }
 
-#boltzmann's constant
+# Boltzmann's constant
 boltz = 1.3806488e-23
 
-#Next three lines of code break up the equation into small parts to make debugging easier. This easier to follow for the reader.
+# Next three lines of code break up the equation into small parts to make debugging easier.
+# This easier to follow for the reader.
 atsquare = np.multiply(materials[material][1], np.square(T))
 kt = np.multiply(boltz, T)
 WOverKt = np.divide(-materials[material][0], kt)
 
-#Overall function that puts the previous three lines of code together
+# Overall function that puts the previous three lines of code together
 function = np.logaddexp(atsquare, np.exp(WOverKt))
 
-#Plots the function and appropriately labels the axes
+# Plots the function and appropriately labels the axes
 oc.plot(T, function, 'r')
 oc.title('Current Thermionic Emission Density of ' + material + ' VS. Temperature')
 oc.xlabel('temperature (K)')
 oc.ylabel('current density of the emission (mA/mm2)')
 
-#gives the user the option of whether or not to continue
+# Gives the user the option of whether or not to continue
 userInput()
 
-#sets the ranges for the two variables in Part 3
+# Sets the ranges for the two variables in Part 3
 T = np.arange(1, 64, 2)
 E = np.arange(1, 64, 2)
 
-#Dictionary categorizing the Ef of materials.
+# Dictionary categorizing the Ef of materials.
 #This is used for Part 3.
 materials = {'Lithium': 4.74,
              'Sodium' : 3.24,
@@ -114,19 +115,20 @@ materials = {'Lithium': 4.74,
 }
 
 
-#Next four lines of code break up the equation into small parts to make debugging easier. This easier to follow for the reader.
+# Next four lines of code break up the equation into small parts to make debugging easier.
+# This easier to follow for the reader.
 numerator = np.subtract(E, materials[material])
 numerator = -numerator
 denominator = np.multiply(boltz, T)
 fraction = np.divide.outer(numerator, denominator)
-#plots the overall function, which puts the previous four lines of code together
+# Plots the overall function, which puts the previous four lines of code together
 oc.surf(fraction)
 
-#Populates the plot with titles and labels
+# Populates the plot with titles and labels
 oc.title('Log of Fermi-Dirac Statistics for ' + material)
 oc.xlabel('Temperature (K)')
 oc.ylabel('Energy E (J)')
 oc.zlabel('Fermi-Dirac Statistics')
 
-#stalls so that the plot does not disappear before the user wants it to.
+# Stalls so that the plot does not disappear before the user wants it to.
 raw_input(' ')
