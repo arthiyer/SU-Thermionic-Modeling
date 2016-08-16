@@ -28,7 +28,7 @@ V = np.arange(1, 64, 1)
 D = np.arange(1, 64, 1)
 
 # Graphs Child's Law
-oc.surf(np.divide.outer(np.multiply(8.8541871e-12,V**1.5),D**2))
+oc.surf(np.divide.outer(np.multiply(00023340,V**1.5),D**2))
 oc.title('Childs law')
 oc.xlabel('potential diff between anode & cathode (V)')
 oc.ylabel('dist. between anode & cathode (mm)')
