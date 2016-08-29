@@ -19,7 +19,7 @@ oc = Oct2Py()
 oc.graphics_toolkit('gnuplot')
 
 # This material is used for both Richardson-Dushman and Fermi-Dirac.
-material = raw_input('What material are you using in your experiment? Please capitalize the first letter of the material ... ')
+material = raw_input('What anode material are you using in your experiment? Please capitalize the first letter of the material ... ')
 
 print('PART 1 --> Childs Law')
 
@@ -79,6 +79,8 @@ oc.ylabel('current density of the emission (mA/mm2)')
 # Gives the user the option of whether or not to continue
 userInput()
 
+print('Part 3 --> Fermi-Dirac Statistics')
+
 # Sets the ranges for the two variables in Part 3
 T = np.arange(1, 64, 2)
 E = np.arange(1, 64, 2)
@@ -129,6 +131,32 @@ oc.title('Log of Fermi-Dirac Statistics for ' + material)
 oc.xlabel('Temperature (K)')
 oc.ylabel('Energy E (J)')
 oc.zlabel('Fermi-Dirac Statistics')
+
+userInput()
+
+
+
+#PART 4
+
+def calcFermi(T, medium, E):
+    numerator = float(E) - float(materials[medium])
+    numerator = -numerator
+    denominator = boltz * float(T)
+    fraction = numerator/denominator
+    return fraction
+
+print('PART 4 --> Voltage Out')
+cathode =  raw_input('What cathode material are you using in your experiment? Please capitalize the first letter of the material ... ')
+anode = raw_input('What anode material are you using in your experiment? Please capitalzise the first letter of the material.... ')
+T = raw_input('What temperature would you like the calculation to be based on? Please do not state the number in word form... ')
+E = raw_input('What E value would you like to use?... ')
+
+
+cathodeFermi = calcFermi(T, cathode, E)
+anodeFermi = calcFermi(T, anode, E)
+Vout = cathodeFermi - anodeFermi
+print('The Vout is: ' + str(Vout)+ 'joules')
+
 
 # Stalls so that the plot does not disappear before the user wants it to.
 raw_input(' ')
